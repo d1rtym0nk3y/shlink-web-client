@@ -41,6 +41,11 @@ registerRoute(
       return false;
     }
 
+    // Cloudflare-reserved paths must bypass the SPA shell.
+    if (url.pathname.startsWith('/cdn-cgi/')) {
+      return false;
+    }
+
     // If this looks like a URL for a resource, because it contains
     // a file extension, skip.
     if (url.pathname.match(fileExtensionRegexp)) {
